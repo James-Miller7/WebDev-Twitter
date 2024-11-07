@@ -1,4 +1,4 @@
-// Tweet.js
+//Tweet.js
 import React, { useState } from 'react';
 
 /* 
@@ -12,5 +12,37 @@ Theres a 'tweet' class you can use to style your tweet.
 */
 
 
+const Tweet = ({ username, content, timestamp, initialLikes}: {
+    username: string;
+    content: string;
+    timestamp: string;
+    initialLikes: number;
+  }) => {
+    const [numLikes, setNumLikes] = useState(initialLikes);
+    const [currentlyLiked, setCurrentlyLiked] = useState(false);
 
-// export default Tweet;
+    const clicked = () => {
+        if (currentlyLiked)
+            setNumLikes(numLikes-1);
+        else
+            setNumLikes(numLikes+1);
+
+        setCurrentlyLiked(!currentlyLiked);
+    }
+    return(
+        <div className = "tweet">
+            <h2>{username}</h2>
+            <p>{content}</p>
+            <p>{timestamp}</p>
+            <button id = 'button' onClick={clicked}> 
+                {currentlyLiked ? '❤️' : '🤍'}
+            </button>
+            <p>{numLikes} {numLikes === 1 ? 'like' : 'likes'}</p>
+
+        </div>
+    );
+}
+
+
+
+export default Tweet;
